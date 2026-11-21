@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: hello
-          image: sofiikam/hello-bluegreen:a58c328e97e7544acf96471b61f502fc7b04f15d
+          image: sofiikam/hello-bluegreen:7d4421c5ae9c07f030583d3d8940d5ed81cc6c74
           ports:
             - name: http
               containerPort: 8050
