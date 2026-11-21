@@ -1,0 +1,36 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
+metadata:
+  name: hello
+spec:
+  replicas: 2
+  revisionHistoryLimit: 2
+  selector:
+    matchLabels:
+      app: hello
+  template:
+    metadata:
+      labels:
+        app: hello
+    spec:
+      containers:
+        - name: hello
+          image: REPLACED_BY_CI
+          ports:
+            - name: http
+              containerPort: 8050
+          readinessProbe:
+            httpGet:
+              path: /
+              port: http
+            periodSeconds: 5
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi
+  strategy:
+    blueGreen:
+      activeService: hello-active
+      previewService: hello-preview
+      autoPromotionEnabled: false
+      scaleDownDelaySeconds: 30
